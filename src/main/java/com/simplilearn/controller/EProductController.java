@@ -9,12 +9,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.simplilearn.dao.EProductDao;
 import com.simplilearn.model.EProduct;
+import com.simplilearn.publisher.EventPublisher;
 
 @Controller
 public class EProductController {
 	
 	@Autowired
 	EProductDao eProductDao;
+	
+	@Autowired
+	EventPublisher ep;
 	
 	
 	@GetMapping("/listProducts")
@@ -23,5 +27,12 @@ public class EProductController {
 		model.addAttribute("products", products);
 		return "listProducts";
 	}
+	
+	@GetMapping("/publish")
+	public String publish() {
+		this.ep.publish();
+		return "publish";
+	}
+	
 
 }
